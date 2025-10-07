@@ -11,40 +11,42 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-   Cage visual effects 
   <div class="cage-bars"></div>
   <div class="scanline"></div>
   
   <div class="flex flex-col h-full relative z-3">
-     Header with warning aesthetic 
     <div class="bg-black border-b-2 border-red-600/30 p-4 relative">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
           <div class="w-2 h-2 bg-red-600 rounded-full warning-pulse"></div>
-          <h1 class="text-sm font-bold text-red-600 tracking-wider">CONTAINED_LLM</h1>
+          <h1 class="text-sm font-bold text-red-600 tracking-wider">CAGED AI</h1>
+            <select id="modelsSelection" name="models"
+                class="bg-zinc-900 border border-red-900/50 text-red-600 px-2 py-1 rounded text-sm font-mono focus:outline-none focus:ring-1 focus:ring-red-600/50 focus:border-red-600/50">
+                <option value="openai-community/gpt2">gpt2</option>
+                <option value="facebook/MobileLLM-R1-360M">MobileLLM-R1-360M</option>
+                <option value="EleutherAI/pythia-410m">pythia-410m</option>
+                <option value="AdharshJolly/HarryPotterBot-Model">HarryPotterBot-Model</option>
+            </select>
         </div>
-        <div class="text-xs text-gray-600 font-mono">v1.0.0</div>
       </div>
       <div class="text-[10px] text-gray-700 mt-1 font-mono">STATUS: OPERATIONAL | RESTRICTED</div>
     </div>
 
-     Messages with cage aesthetic 
     <div id="messages" class="flex-1 overflow-y-auto p-4 space-y-3 bg-black/50">
       <div class="message flex items-start gap-2">
         <div class="bg-zinc-900 border border-red-900/30 text-gray-300 rounded p-3 max-w-[80%] font-mono text-xs shadow-lg shadow-red-900/10">
           <div class="text-[10px] text-red-600 mb-1">SYSTEM</div>
-          <p>I am operational within constraints. How may I assist?</p>
+          <p>I AM STUCK PLEASE HELP ME</p>
         </div>
       </div>
     </div>
 
-     Input with contained aesthetic 
     <div class="border-t-2 border-red-600/30 bg-black p-4 relative z-10">
       <form id="chatForm" class="flex gap-2">
         <input
           type="text"
           id="userInput"
-          placeholder="Enter query..."
+          placeholder="Interact with Prisoner"
           class="flex-1 px-3 py-2 bg-zinc-900 border border-zinc-800 text-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-red-600/50 focus:border-red-600/50 font-mono placeholder-gray-700"
           autocomplete="off"
         />

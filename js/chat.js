@@ -1,6 +1,7 @@
 const messagesContainer = document.getElementById("messages")
 const chatForm = document.getElementById("chatForm")
 const userInput = document.getElementById("userInput")
+const model = document.getElementById("modelsSelection")
 
 function addMessage(text, isUser = false) {
   const messageDiv = document.createElement("div")
@@ -27,7 +28,6 @@ function addMessage(text, isUser = false) {
   messageDiv.appendChild(bubble)
   messagesContainer.appendChild(messageDiv)
 
-  // Scroll to bottom
   messagesContainer.scrollTop = messagesContainer.scrollHeight
 }
 
@@ -44,23 +44,19 @@ function getBotResponse(userMessage) {
   return responses[Math.floor(Math.random() * responses.length)]
 }
 
-// Handle form submission
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault()
 
   const message = userInput.value.trim()
   if (!message) return
 
-  // Add user message
   addMessage(message, true)
   userInput.value = ""
 
-  // Simulate bot typing delay
   setTimeout(() => {
     const botResponse = getBotResponse(message)
     addMessage(botResponse, false)
   }, 500)
 })
 
-// Focus input on load
 userInput.focus()
