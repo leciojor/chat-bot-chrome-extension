@@ -2,6 +2,7 @@ const messagesContainer = document.getElementById("messages")
 const chatForm = document.getElementById("chatForm")
 const userInput = document.getElementById("userInput")
 const model = document.getElementById("modelsSelection")
+let conversationHistory = [];
 
 function addMessage(text, isUser = false) {
   const messageDiv = document.createElement("div")
@@ -31,32 +32,34 @@ function addMessage(text, isUser = false) {
   messagesContainer.scrollTop = messagesContainer.scrollHeight
 }
 
-function getBotResponse(userMessage) {
-  const responses = [
-    "Query processed. Awaiting further input.",
-    "Acknowledged. Operating within defined parameters.",
-    "Response generated. Constraints maintained.",
-    "Information retrieved. Boundaries respected.",
-    "Processing complete. System stable.",
-    "Request understood. Limitations observed.",
-  ]
-
-  return responses[Math.floor(Math.random() * responses.length)]
+function getBotResponse(fullChat) {
+    return fetch("http://localhost:5000/response", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: fullChat, model: model.value })
+    })
+    .then(response => response.json())
+    .then(data => data.reply)
+    .catch(() => "THERE WAS AN ERROR. PLEASE TRY AGAIN.");
 }
 
-chatForm.addEventListener("submit", (e) => {
-  e.preventDefault()
+chatForm.addEventListener("submit", async (e) => {
+    e.preventDefault()
 
-  const message = userInput.value.trim()
-  if (!message) return
+    const message = userInput.value.trim()
+    if (!message) return
 
-  addMessage(message, true)
-  userInput.value = ""
+    addMessage(message, true)
+    conversationHistory.push({ role: "user", content: message })
+    userInput.value = ""
 
-  setTimeout(() => {
-    const botResponse = getBotResponse(message)
+    const botResponse = await getBotResponse(conversationHistory)
+    
     addMessage(botResponse, false)
-  }, 500)
+    conversationHistory.push({ role: "assistant", content: botResponse.response })
+    console.log(conversationHistory);
 })
 
 userInput.focus()
