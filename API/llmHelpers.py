@@ -55,6 +55,7 @@ def generate_response(full_chat, model_name, temp=0.5, top_p=0.9, max_new_tokens
       top_p=top_p,
       max_new_tokens=max_new_tokens,
       do_sample=True,
+      num_beams=2,
       pad_token_id=tokenizer.eos_token_id
   )
   
