@@ -10,7 +10,7 @@ CORS(app)
 
 def response():
     data = request.get_json()
-    previous_chat = data.get("previous_chat", "") if data else ""
+    previous_chat = data.get("previous_chat", []) if data else []
     model = data.get("model", "") if data else ""
     return jsonify({"response": generate_response(previous_chat, model)})
 
